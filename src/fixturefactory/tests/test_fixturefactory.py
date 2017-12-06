@@ -1,8 +1,6 @@
-from __future__ import absolute_import
-
 import itertools
 
-from lib import fixturefactory
+import fixturefactory
 
 from unittest import TestCase
 
