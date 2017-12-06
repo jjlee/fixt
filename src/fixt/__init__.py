@@ -1,5 +1,5 @@
-from fixturefactory._cleanups import Cleanups
-from fixturefactory._fixturefactory import (
+from fixt._cleanups import Cleanups
+from fixt._fixt import (
     Factory,
     MakerSetHelper,
     adapt_class,
@@ -8,7 +8,7 @@ from fixturefactory._fixturefactory import (
     make_factory_maker,
     with_factory,
 )
-from fixturefactory._monkeypatch import MonkeyPatcher
+from fixt._monkeypatch import MonkeyPatcher
 
 __all__ = [
     Cleanups,

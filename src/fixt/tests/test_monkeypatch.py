@@ -1,4 +1,4 @@
-from fixturefactory import MonkeyPatcher
+from fixt import MonkeyPatcher
 
 from unittest import TestCase
 

@@ -1,6 +1,6 @@
 import itertools
 
-import fixturefactory
+import fixt
 
 from unittest import TestCase
 
@@ -8,7 +8,7 @@ from unittest import TestCase
 class TestFactory(TestCase):
 
     def make_factory(self):
-        return fixturefactory.Factory(self.addCleanup, self)
+        return fixt.Factory(self.addCleanup, self)
 
     def make_factory_with_fixture_and_child_factory(self, make_fixture):
         factory = self.make_factory()
@@ -31,7 +31,7 @@ class TestFactory(TestCase):
             lambda factory: 'spam'
         )
         child = factory.child
-        self.assertEqual(type(child), fixturefactory.Factory)
+        self.assertEqual(type(child), fixt.Factory)
         self.assertIs(child, factory.child)
         self.assertEqual(child.spam, 'spam')
 
@@ -152,8 +152,7 @@ class TestFactory(TestCase):
         self.assertEqual(factory.bob, 0)
 
     def test_dependency(self):
-        # This is not really a feature of fixturefactory, but it is its main
-        # use case.
+        # This is not really a feature of fixt, but it is its main use case.
         factory = self.make_factory()
         factory.add_maker('bob', lambda factory: factory.alice + ' and Bob')
         factory.add_maker('alice', lambda factory: 'Alice')
@@ -198,7 +197,7 @@ class TestFactory(TestCase):
 
     def test_helper_add_constant(self):
         factory = self.make_factory()
-        helper = fixturefactory.MakerSetHelper()
+        helper = fixt.MakerSetHelper()
         helper.add_constant('db_name', 'my-db')
         for name, maker in helper.makers:
             factory.add_maker(name, maker)

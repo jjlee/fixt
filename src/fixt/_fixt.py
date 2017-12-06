@@ -299,7 +299,7 @@ def _with_factory(make_makers):
     Args:
         make_makers (callable): Return an iterable over (name, maker) pairs,
           where maker (callable): Return a fixture (arbitrary object) given
-          FixtureFactory as single argument
+          Factory as single argument
     """
 
     def wrap(test_func):
@@ -346,7 +346,7 @@ def with_factory(*make_makers_funcs):
     The arguments are callables that return an iterable over (name, maker)
       pairs, where:
       maker (callable): Return a fixture (arbitrary object) given
-        FixtureFactory as single argument
+        Factory as single argument
     """
     make_all_makers = compose_make_makers(*make_makers_funcs)
     return _with_factory(make_all_makers)

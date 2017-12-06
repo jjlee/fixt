@@ -41,11 +41,11 @@ install_requires = []
 tests_require = []
 
 version = read_version(
-    os.path.join(this_dir(), 'src/fixturefactory/_version.py'))
+    os.path.join(this_dir(), 'src/fixt/_version.py'))
 
 setup(
-    name='fixturefactory',
-    url='https://github.com/jlee_made/fixturefactory',
+    name='fixt',
+    url='https://github.com/jlee_made/fixt',
     author='John Lee',
     classifiers=classifiers,
     description=(
