@@ -118,8 +118,7 @@ class Factory(object):
         self._made = {}
 
     def make_child_factory(self, makers):
-        return make_factory(
-            self.add_cleanup, self.test, self._root, makers)
+        return make_factory(self.add_cleanup, self.test, self._root, makers)
 
     def add_maker(self, name, maker):
         """Add a maker.
@@ -129,6 +128,8 @@ class Factory(object):
                 available on the Factory instance
                 maker (callable): one-argument function that instantiates a new
                 fixture
+
+        Use of 'is_finder' attribute on maker functions is experimental!
         """
         if name in self._makers:
             raise ValueError(
@@ -137,16 +138,17 @@ class Factory(object):
         self._makers[name] = maker
 
     def __getattr__(self, name):
+        try:
+            maker = self._makers[name]
+        except KeyError:
+            # Raise AttributeError
+            getattr(type(self), name)
         obj = self._made.get(name, self._Missing)
-        if obj is self._Missing:
-            try:
-                maker = self._makers[name]
-            except KeyError:
-                # Raise AttributeError
-                getattr(type(self), name)
-            else:
-                obj = maker(self._root)
-                self._made[name] = obj
+        if getattr(maker, 'is_finder', False):
+            obj = maker(self._root)
+        elif obj is self._Missing:
+            obj = maker(self._root)
+            self._made[name] = obj
         return obj
 
     def force_set(self, name, value):
@@ -241,6 +243,10 @@ class MakerSetHelper(object):
         if name is None:
             name = func.__name__
         self.makers.append((name, func))
+
+    def add_finder(self, func, name=None):
+        func.is_finder = True
+        self.add_maker(func, name)
 
     def add_constant(self, name, const):
         self.add_maker(lambda factory: const, name)
