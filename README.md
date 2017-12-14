@@ -41,7 +41,7 @@ This project is closely based on my memory of a simpler but very similar tool
 written by Mark Seaborn in maybe 2008. This adds namespaces, which makes this
 not so elegant as Mark's version, but I've found them somewhat useful.
 
-Inspired by this project: https://github.com/palankai/baluster
+Inspired by fixt: https://github.com/palankai/baluster
 
 https://pypi.python.org/pypi/make-it-easy
 
