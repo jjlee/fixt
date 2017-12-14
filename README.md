@@ -43,6 +43,6 @@ not so elegant as Mark's version, but I've found them somewhat useful.
 
 Inspired by fixt: https://github.com/palankai/baluster
 
-https://pypi.python.org/pypi/make-it-easy
+Test Data Builder implementation: https://pypi.python.org/pypi/make-it-easy
 
 https://pypi.python.org/pypi/factory_boy
