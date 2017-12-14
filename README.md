@@ -5,7 +5,7 @@ benefits.
 
 Additional benefits compared to that pattern:
 
-* "Make me an <x>, any <x> will do" is very easy
+* "Make me an `x`, any `x` will do" is very easy
 
 * That is because automatically creating dependencies is very easy, which is in
   turn because by default every object type has either zero or one instance
