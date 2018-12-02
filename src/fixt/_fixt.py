@@ -1,4 +1,3 @@
-import functools
 import inspect
 
 
@@ -304,7 +303,6 @@ def _with_factory(make_makers):
 
     def wrap(test_func):
 
-        @functools.wraps(test_func)
         def wrapper(self, *args, **kwargs):
             factory = make_factory(
                 self.addCleanup, test=self, root=None, makers=make_makers())
@@ -312,7 +310,7 @@ def _with_factory(make_makers):
 
         return wrapper
 
-    def decorator(test_func_or_class):
+    def deco(test_func_or_class):
         if inspect.isclass(test_func_or_class):
             class_ = test_func_or_class
             for name, method in inspect.getmembers(class_, is_test_method):
@@ -323,7 +321,7 @@ def _with_factory(make_makers):
             method = test_func_or_class
             return wrap(method)
 
-    return decorator
+    return deco
 
 
 def with_factory(*make_makers_funcs):
