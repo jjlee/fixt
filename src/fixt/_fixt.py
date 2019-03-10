@@ -270,7 +270,7 @@ def make_factory(add_cleanup, test, root, makers):
 
 
 def is_test_method(obj):
-    return inspect.ismethod(obj) and obj.__name__.startswith('test')
+    return inspect.isfunction(obj) and obj.__name__.startswith('test')
 
 
 def compose_make_makers(*funcs):

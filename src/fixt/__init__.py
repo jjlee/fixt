@@ -9,7 +9,7 @@ from fixt._fixt import (
     with_factory,
 )
 from fixt._monkeypatch import MonkeyPatcher
-from fixt._tempdir import TempDirMaker
+from fixt._tempdir import TempDirMaker, rmtree_forcing_permissions
 
 __all__ = [
     Cleanups,
@@ -22,5 +22,6 @@ __all__ = [
     compose_make_makers,
     make_factory,
     make_factory_maker,
+    rmtree_forcing_permissions,
     with_factory,
 ]
