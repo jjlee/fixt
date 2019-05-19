@@ -45,7 +45,7 @@ version = read_version(
 
 setup(
     name='fixt',
-    url='https://github.com/jlee-made/fixt',
+    url='https://github.com/jlee1-made/fixt',
     author='John Lee',
     classifiers=classifiers,
     description=(
