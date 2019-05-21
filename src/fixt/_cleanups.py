@@ -37,7 +37,7 @@ class Cleanups:
             raise FailedToCleanUpError()
 
 
-class CleanupMixin:
+class ContextsCleanupMixin:
     """For contexts tests."""
 
     def given_cleanups(self):

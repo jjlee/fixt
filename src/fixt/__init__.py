@@ -1,4 +1,4 @@
-from fixt._cleanups import CleanupMixin, Cleanups, PytestCleanupBase
+from fixt._cleanups import ContextsCleanupMixin, Cleanups, PytestCleanupBase
 from fixt._fixt import (
     Factory,
     MakerSetHelper,
@@ -12,8 +12,8 @@ from fixt._monkeypatch import MonkeyPatcher
 from fixt._tempdir import TempDirMaker, rmtree_forcing_permissions
 
 __all__ = [
-    CleanupMixin,
     Cleanups,
+    ContextsCleanupMixin,
     PytestCleanupBase,
     Factory,
     MakerSetHelper,
