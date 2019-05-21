@@ -2,6 +2,13 @@ import logging
 import unittest
 
 
+try:
+    from contexts import ignored
+except ImportError:
+    def ignored(func):
+        return func
+
+
 logger = logging.getLogger(__name__)
 
 
@@ -31,7 +38,6 @@ class Cleanups:
 
 
 class CleanupMixin:
-
     """For contexts tests."""
 
     def given_cleanups(self):
@@ -40,6 +46,7 @@ class CleanupMixin:
     def cleanup(self):
         self.cleanups.clean_up()
 
+    @ignored
     def add_cleanup(self, func):
         self.cleanups.add_cleanup(func)
 
