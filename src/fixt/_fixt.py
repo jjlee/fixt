@@ -262,6 +262,17 @@ def adapt_class(class_):
     return lambda: inspect.getmembers(class_(), inspect.ismethod)
 
 
+def is_finder(func):
+    """Mark a method as a finder method.
+
+    For use with adapt_class.
+
+    Use of is_finder is experimental!
+    """
+    func.is_finder = True
+    return func
+
+
 def make_factory(add_cleanup, test, root, makers):
     factory = Factory(add_cleanup, test, root)
     for name, maker in makers:
