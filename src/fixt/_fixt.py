@@ -77,7 +77,7 @@ class Factory(object):
 
     Then:
 
-    >>>> assert factory.seal is factory.broken_seal
+    >>> assert factory.seal is factory.broken_seal
 
     and iff factory.broken_seal is never referenced, the seal is intact.  If
     necessary another maker can be defined that is unambigously unbroken:
@@ -95,6 +95,42 @@ class Factory(object):
     2. .partial_copy() supports dotted names:
 
     factory.partial_copy(['cr', 'products', 'sales.so'])
+
+
+    In addition to making new objects, sometimes you want to get hold of
+    objects that are already made.  Usually it suffices to just refer to the
+    fixture again:
+
+    factory.spam  # first time we referenced this -- make the object
+    factory.spam  # same object we already made
+
+    This is very convenient in tests.  However, sometimes it's not good if it's
+    unclear whether a reference to a fixture might actually make the object
+    rather than just finding it.  For example, if an assertion wants to verify
+    that an object got created, it's no good to write:
+
+    assert factory.spam is not None
+
+    because, whether the system under test created the "spam" object or not,
+    we're never going to get None.  Also, when there is a database involved, to
+    see the latest state, it may sometimes be necessary to fetch from the
+    database again (e.g. if there are multiple transactions involved).
+
+    fixt provides a feature to deal with this: "finder" functions are exactly
+    like maker functions, but are not cached by the Factory.  So they are
+    evaluated every time they are referenced through the factory:
+
+    def found_spam(factory):
+        return factory.database.find_spam(factory.spam_id)
+    found_spam.is_finder = True
+
+    factory.add_maker("found_spam", found_spam)
+    factory.found_spam  # calls found_spam
+    factory.found_spam  # calls found_spam again
+
+    (typically this is done using MakerSetHelper or adapt_class rather than
+    directly using add_maker as above TODO should probably add a decorator for
+    use with adapt_class to mark finder methods as such).
     """
 
     _Missing = object()
@@ -127,8 +163,6 @@ class Factory(object):
                 available on the Factory instance
                 maker (callable): one-argument function that instantiates a new
                 fixture
-
-        Use of 'is_finder' attribute on maker functions is experimental!
         """
         if name in self._makers:
             raise ValueError(
