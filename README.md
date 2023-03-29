@@ -41,6 +41,15 @@ This project is closely based on my memory of a simpler but very similar tool
 written by Mark Seaborn in maybe 2008. This adds namespaces, which makes this
 not so elegant as Mark's version, but I've found them somewhat useful.
 
+In recent years I have used fixt together with pytest.  pytest fixtures
+implements the same pattern (I think Mark's implementation preceded pytest's?).
+The pytest implementation doesn't provide some of features that the pattern
+affords (from memory: replacing a fixture instance with one made by composing
+objects that are themselves fixtures can cause problems, and `.partial_copy()`
+is missing).  pytest provides other features which probably conflict somewhat
+with these (but I've not so far found I've needed those pytest features).  TODO:
+this needs a blog post to explain!
+
 Inspired by fixt: https://github.com/palankai/baluster
 
 Test Data Builder implementation: https://pypi.python.org/pypi/make-it-easy
